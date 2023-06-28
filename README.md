@@ -26,3 +26,10 @@ All you need to do in final script to access data taking example of Linear Accel
 
 Note - There is additional Reltime topic to every struct of topic container Header.Stamp.Sec & NSec entries. 
 This is nothing but all timestamps - t0 time for ease of plotting the data
+
+MultipleBags Processing script does the following:
+1. Processes all ros bags in given rosbag directory and creates one cell array containing all bags
+2. velocityPlotter is helper function to plot Husky cmd_vel topics of all bags cell array input
+3. plotImuData is helper function to plot Linear Acc X,Y, Z of all bags cell array input
+4. plotGps is helper function to plot all lat,lon data in ENU coordinate system 
+
