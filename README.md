@@ -31,5 +31,12 @@ MultipleBags Processing script does the following:
 1. Processes all ros bags in given rosbag directory and creates one cell array containing all bags
 2. velocityPlotter is helper function to plot Husky cmd_vel topics of all bags cell array input
 3. plotImuData is helper function to plot Linear Acc X,Y, Z of all bags cell array input
-4. plotGps is helper function to plot all lat,lon data in ENU coordinate system 
+4. plotGps is helper function to plot all lat,lon data in ENU coordinate system
+
+   
+
+https://github.com/Autonomousanz/MATLABrosbagReader/assets/64002247/34b39afe-96cd-4f7e-8467-7fd4f36fc705
+
+
+
 
