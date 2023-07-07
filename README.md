@@ -35,7 +35,9 @@ MultipleBags Processing script does the following:
 
    
 
-https://github.com/Autonomousanz/MATLABrosbagReader/assets/64002247/34b39afe-96cd-4f7e-8467-7fd4f36fc705
+
+
+https://github.com/Autonomousanz/MATLABrosbagReader/assets/64002247/89cc31b7-2b0c-4780-9929-dd3b6b47e235
 
 
 
