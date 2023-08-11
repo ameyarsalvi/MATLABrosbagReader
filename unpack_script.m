@@ -17,7 +17,36 @@ clear
 clothoid_1 = rosbagReader('D:\husky_sysID\dataset_Clothoid\fsc_v_0.7_m_0006_2023-05-06-15-20-49.bag');
 
 %bank_grass = rosbagReader('fsc_v_0.2_m_0002_2023-05-06-14-12-47.bag');
-%% *Plot example of Linear Acceleration in X with respect to relative time* 
+
+%%
+
+
+%% 
+% 
+% 
+% *INPUT : Command Velocity*
+
+cmd.linX = clothoid_1.husky_velocity_controller_cmd_vel.Linear.X;
+cmd.angZ = clothoid_1.husky_velocity_controller_cmd_vel.Angular.Z;
+Reltime = clothoid_1.husky_velocity_controller_cmd_vel.RelTime;
+
+fcmd = figure();
+subplot(1,2,1)
+plot(Reltime,cmd.linX)
+title('cmd lin X')
+xlabel('Time [s] ')
+ylabel('Linear velocity (m/s)')
+
+subplot(1,2,2)
+plot(Reltime,cmd.angZ)
+title('cmd ang Z')
+xlabel('Time [s] ')
+ylabel('Angular velocity(rad/s)')
+set(fcmd,'Units','normalized','Position',[0 0 0.5 0.4])
+%%
+
+%% 
+% *Realized IMU Data*
 
 %flat_concrete.joint_states.Velocity
 % Plotting each topic / any quantity becomes easier
@@ -35,41 +64,41 @@ Reltime = clothoid_1.gx5_imu_data.RelTime;
 f0 = figure();
 subplot(2,3,1)
 plot(Reltime,acc.X)
-title('Flat concrete Linear Acc X')
+title('Linear Acc X')
 xlabel('Time [s] ')
 ylabel('Acceleration [m/s2]')
 
 subplot(2,3,2)
 plot(Reltime,acc.Y)
-title('Flat concrete Linear Acc Y')
+title('Linear Acc Y')
 xlabel('Time [s] ')
 ylabel('Acceleration [m/s2]')
 
 subplot(2,3,3)
 plot(Reltime,acc.Z)
-title('Flat concrete Linear Acc Z')
+title('Linear Acc Z')
 xlabel('Time [s] ')
 ylabel('Acceleration [m/s2]')
 
 subplot(2,3,4)
 plot(Reltime,ang.X)
-title('Flat concrete Angular Vel X')
+title('Angular Vel X')
 xlabel('Time [s] ')
-ylabel('Acceleration [m/s2]')
+ylabel('Angular Vel [rad/s]')
 
 subplot(2,3,5)
 plot(Reltime,ang.Y)
-title('Flat concrete Angular Vel Y')
+title('Angular Vel Y')
 xlabel('Time [s] ')
-ylabel('Acceleration [m/s2]')
+ylabel('Angular Vel [rad/s]')
 
 subplot(2,3,6)
 plot(Reltime,ang.Z)
-title('Flat concrete Angular Vel Z')
+title('Angular Vel Z')
 xlabel('Time [s] ')
-ylabel('Acceleration [m/s2]')
+ylabel('Angular Vel [rad/s]')
 
-set(f0,'Units','normalized','Position',[0 0 1.5 0.5])
+set(f0,'Units','normalized','Position',[0 0 1.5 1.5])
 %% *Convert the GPS data to ENU-Carthesian coordinate frame*
 
 %Lets now plot navsatfix and coverted the quantities using geodetic to enu
@@ -94,13 +123,14 @@ axis equal
 xlabel('xEast [m]');
 ylabel('yNorth [m]');
 title('Cartesian position relative to starting point @(0,0)');
+%% Lat long GPS
 
-%% Lets see if the experiment area more clearly with satellite image
 figure()
 geoplot(gpsLat,gpsLon);
 geobasemap satellite
 %%
-%Wheel Encoder data processing
+
+%% Wheel Encoder data processing
 
 %flat_concrete.joint_states.Velocity
 % Plotting each topic / any quantity becomes easier
@@ -126,36 +156,32 @@ f2 = figure();
 
 subplot(1,4,1)
 plot(Reltime,w1)
-title('Wheel one encoder : velocity')
+title('Left front encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('rad/s')
 
 subplot(1,4,2)
 plot(Reltime,w2)
-title('Wheel two encoder : velocity')
+title('Right front encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('rad/s')
 
 subplot(1,4,3)
 plot(Reltime,w3)
-title('Wheel three encoder : velocity')
+title('Left rear encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('rad/s')
 
 subplot(1,4,4)
 plot(Reltime,w4)
-title('Wheel four encoder : velocity')
+title('Right rear encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('rad/s')
 
-set(f2,'Units','normalized','Position',[0 0 1.5 0.5])
+set(f2,'Units','normalized','Position',[0 0 1 0.4])
 %% 
 % Two wheels on the same side are expected to have similar wheel velocites. 
 % Overlaying all the values on top of each other will help us identify those wheels
-% 
-% 
-
-
 
 % How same or different are all the wheel velocities
 
@@ -164,34 +190,30 @@ f3 = figure();
 
 hold on
 plot(Reltime,w1)
-title('Wheel one encoder : velocity')
+title('Left front encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
-
+ylabel('rad/s')
 
 plot(Reltime,w2)
-title('Wheel two encoder : velocity')
+title('Right front encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
-
+ylabel('rad/s')
 
 plot(Reltime,w3)
-title('Wheel three encoder : velocity')
+title('Left rear encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('rad/s')
 
 
 plot(Reltime,w4)
-title('Wheel four encoder : velocity')
+title('Right rear encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('rad/s')
 legend('w1','w2','w3','w4')
 hold off
 
 set(f3,'Units','normalized','Position',[0 0 1.5 0.5])
 %%
-
-
 f4 = figure();
 
 subplot(1,2,1)
@@ -247,27 +269,29 @@ f5 = figure();
 
 subplot(1,4,1)
 plot(Reltime,w1p)
-title('Wheel one encoder : velocity')
+title('FL encoder : Position')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('Distance (m)')
 
 subplot(1,4,2)
 plot(Reltime,w2p)
-title('Wheel two encoder : velocity')
+title('FR encoder : Position')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('Distance (m)')
 
 subplot(1,4,3)
 plot(Reltime,w3p)
-title('Wheel three encoder : velocity')
+title('RL encoder : Position')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('Distance (m)')
+
 
 subplot(1,4,4)
 plot(Reltime,w4p)
-title('Wheel four encoder : velocity')
+title('RR encoder : velocity')
 xlabel('Time [s] ')
-ylabel('unknow')
+ylabel('Distance (m)')
+
 set(f5,'Units','normalized','Position',[0 0 1.5 0.5])
 %%
 %Are pairs of the plots same or is there some measureable difference
